@@ -5,6 +5,9 @@ import PackageDescription
 let package = Package(
   name: "pdfrenamer",
   platforms: [.macOS(.v15)],
+  products: [
+      .executable(name: "pdfrenamer", targets: ["pdfrenamer"]),
+  ],
   dependencies: [
     .package(url: "https://github.com/apple/swift-argument-parser", from: "1.3.0"),
     .package(url: "https://github.com/mxcl/Path.swift.git", from: "1.4.1"),
