@@ -26,20 +26,23 @@ struct pdfrenamer: ParsableCommand {
     // 3. Fail if a page has multiple identifiers
     for (index, array) in identifierArrays.enumerated() {
       if array.count > 1 {
-        fatalError("Page \(index + 1) has multiple identifiers.")
+        print("\(path): Page \(index + 1) has multiple identifiers.")
+          return
       }
     }
 
     // 4. Fail if a page after the first has an identifier
     for (index, array) in identifierArrays.dropFirst().enumerated() {
       if array.count > 0 {
-        fatalError("Page \(index + 1) has an identifier. Only allowed on first page.")
+        print("\(path): Page \(index + 1) has an identifier. Only allowed on first page.")
+        return
       }
     }
 
     // 5. Ensure that first page has an doc-id: identifier
     guard let identifier = identifierArrays[0].first else {
-      fatalError("First page has no identifier")
+      print("\(path): First page has no identifier")
+      return
     }
 
     print("Found \(identifier) on page 1.")
