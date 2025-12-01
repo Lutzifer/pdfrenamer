@@ -18,7 +18,9 @@ extension PDFPage {
     var options: [String: Any]
     let context = CIContext()
     options = [CIDetectorAccuracy: CIDetectorAccuracyHigh]
+    
     let qrDetector = CIDetector(ofType: CIDetectorTypeQRCode, context: context, options: options)
+      
     if ciImage.properties.keys.contains((kCGImagePropertyOrientation as String)) {
       options = [
         CIDetectorImageOrientation: ciImage.properties[(kCGImagePropertyOrientation as String)] ?? 1
@@ -26,6 +28,7 @@ extension PDFPage {
     } else {
       options = [CIDetectorImageOrientation: 1]
     }
+
     let features = qrDetector?.features(in: ciImage, options: options)
 
     return features?.compactMap { $0 as? CIQRCodeFeature }.map(\.messageString!) ?? []
