@@ -1,0 +1,48 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage{iftex}
+\ifluatex\else
+  \errmessage{labels.tex requires LuaLaTeX. Run: latexmk -lualatex labels.tex}
+\fi
+
+\usepackage{xcolor}
+\usepackage[scaled]{helvet}
+\usepackage[T1]{fontenc}
+\renewcommand\familydefault{\bfdefault}
+
+\usepackage[newdimens]{labels}
+\LabelCols=4
+\LabelRows=16
+\LeftPageMargin=10mm
+\RightPageMargin=10mm
+\TopPageMargin=13.5mm
+\BottomPageMargin=13.5mm
+\InterLabelColumn=2mm
+\InterLabelRow=0mm
+\LeftLabelBorder=12mm
+\RightLabelBorder=1mm
+\TopLabelBorder=1mm
+\BottomLabelBorder=1mm
+
+\usepackage{qrcode}
+\usepackage{luacode}
+\qrset{height=0.6cm}
+
+\begin{document}
+
+\Large
+
+\begin{luacode*}
+  local years = {"2026"}
+  local identifiers = {"A", "B"}
+  
+  for _, year in ipairs(years) do
+    for _, identifier in ipairs(identifiers) do
+      for number = 1, 64 do
+        local id = string.format("%s-%s-%03d", identifier, year, number)
+        tex.sprint("\\addresslabel{\\normalsize{" .. id .. "} \\qrcode{doc-id:" .. id .. "}}")
+      end
+    end
+  end
+\end{luacode*}
+
+\end{document}

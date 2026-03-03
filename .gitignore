@@ -8,3 +8,8 @@ DerivedData/
 .netrc
 /Package.resolved
 /.swiftpm
+*.aux
+*.dvi
+*.fdb_latexmk
+*.fls
+*.log
