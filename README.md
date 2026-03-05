@@ -21,6 +21,28 @@ The built binary will be at `.build/release/pdfrenamer`.
 swift run pdfrenamer /path/to/file1.pdf /path/to/file2.pdf
 ```
 
+## UI App (Drag and Drop)
+
+The macOS app lives in the Xcode project:
+
+```sh
+open PDFRenamer/PDFRenamer.xcodeproj
+```
+
+Build and run target `PDFRenamer` from Xcode.
+
+From terminal you can also build it with:
+
+```sh
+xcodebuild -project PDFRenamer/PDFRenamer.xcodeproj -scheme PDFRenamer -configuration Release -destination 'platform=macOS'
+```
+
+Features:
+- Drag PDFs onto the app window to rename in place.
+- Drop files onto the app icon to process them.
+- View per-file success, skipped reasons, and errors in the log UI.
+- Use `Choose PDFs` to pick files manually.
+
 Notes:
 - Only PDFs are processed.
 - If any page has multiple `doc-id:` QR codes, the file is skipped.

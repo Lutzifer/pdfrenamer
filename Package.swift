@@ -6,6 +6,7 @@ let package = Package(
   name: "pdfrenamer",
   platforms: [.macOS(.v15)],
   products: [
+      .library(name: "PDFRenamerCore", targets: ["PDFRenamerCore"]),
       .executable(name: "pdfrenamer", targets: ["pdfrenamer"]),
   ],
   dependencies: [
@@ -13,11 +14,17 @@ let package = Package(
     .package(url: "https://github.com/mxcl/Path.swift.git", from: "1.4.1"),
   ],
   targets: [
+    .target(
+      name: "PDFRenamerCore",
+      dependencies: [
+        .product(name: "Path", package: "Path.swift"),
+      ]
+    ),
     .executableTarget(
       name: "pdfrenamer",
       dependencies: [
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
-        .product(name: "Path", package: "Path.swift"),
+        "PDFRenamerCore",
       ]
     )
   ]
